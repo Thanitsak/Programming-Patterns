@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,6 +13,19 @@ public class Level : MonoBehaviour
 
     #region --Events-- (UnityEvent)
     [SerializeField] private UnityEvent _onLevelUp;
+    #endregion
+
+
+
+    #region --Events-- (Delegate)
+    public delegate void SimpleDelegate();
+    public event SimpleDelegate OnLevelUpActionSame; // Exactly Same as OnLevelUpAction
+    #endregion
+
+
+
+    #region --Events-- (Delegate as Action)
+    public event Action OnLevelUpAction;
     #endregion
 
 
@@ -44,6 +58,8 @@ public class Level : MonoBehaviour
         if (GetLevel() > oldLevel)
         {
             _onLevelUp.Invoke();
+
+            OnLevelUpAction.Invoke();
         }
     }
 
