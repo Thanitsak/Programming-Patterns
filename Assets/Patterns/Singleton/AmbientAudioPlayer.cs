@@ -1,24 +1,38 @@
 using UnityEngine;
 
-public class AmbientAudioPlayer {
+public class AmbientAudioPlayer
+{
+    #region --Fields-- (In Class)
+    private static AmbientAudioPlayer _instance = null;
+    #endregion
 
-    private static AmbientAudioPlayer instance = null;
 
+
+    #region --Constructors-- (PRIVATE)
+    private AmbientAudioPlayer() // Default Constructor, no class outside can create an instance of this class 
+    {
+    }
+    #endregion
+
+
+
+    #region --Methods-- (Custom PUBLIC) ~static~
     public static AmbientAudioPlayer GetInstance()
     {
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = new AmbientAudioPlayer();
+            _instance = new AmbientAudioPlayer();
         }
-        return instance;
+        return _instance;
     }
+    #endregion
 
-    private AmbientAudioPlayer()
-    {
-    }
 
+
+    #region --Methods-- (Custom PUBLIC)
     public void FadeNewMusic(AudioClip clip)
     {
         // TODO
     }
+    #endregion
 }
