@@ -18,8 +18,10 @@ public class Level : MonoBehaviour
 
 
     #region --Events-- (Delegate)
+#pragma warning disable CS0067
     public delegate void SimpleDelegate();
     public event SimpleDelegate OnLevelUpActionSame; // Exactly Same as OnLevelUpAction
+#pragma warning restore CS0067
     #endregion
 
 
