@@ -40,16 +40,19 @@ public class GroundedState : LocomotionState
 {
     public void Crouch(LocomotionContext context)
     {
+        // **** Usually we have to enact some code here, not just changing the state ****
         context.SetState(new CrouchingState());
     }
 
     public void Fall(LocomotionContext context)
     {
+        // **** Usually we have to enact some code here, not just changing the state ****
         context.SetState(new InAirState());
     }
 
     public void Jump(LocomotionContext context)
     {
+        // **** Usually we have to enact some code here, not just changing the state ****
         context.SetState(new InAirState());
     }
 
