@@ -54,7 +54,7 @@ public class Launcher : MonoBehaviour
         bullet.gameObject.SetActive(false);
     }
 
-    // If the pool capacity is reached then any items returned will be destroyed, but will create more if needed. For Resources Saving Purpose, it needs memory for keeping items around.
+    // For Resources Saving Purpose, it needs memory for keeping items around. (If the pool capacity is reached then any items returned will be destroyed, but will create more if needed)
     private void OnDestroyItem(Bullet bullet)
     {
         Destroy(bullet.gameObject);

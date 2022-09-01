@@ -20,24 +20,35 @@ public interface LocomotionState
 
 public class LocomotionStatePattern : MonoBehaviour, LocomotionContext
 {
-    LocomotionState currentState = new GroundedState();
+    #region --Fields-- (In Class)
+    LocomotionState _currentState = new GroundedState();
+    #endregion
 
-    public void Crouch() => currentState.Crouch(this);
 
-    public void Fall() => currentState.Fall(this);
 
-    public void Jump() => currentState.Jump(this);
+    #region --Methods-- (Custom PUBLIC) ~Actions~
+    public void Crouch() => _currentState.Crouch(this);
 
-    public void Land() => currentState.Land(this);
+    public void Fall() => _currentState.Fall(this);
 
+    public void Jump() => _currentState.Jump(this);
+
+    public void Land() => _currentState.Land(this);
+    #endregion
+
+
+
+    #region --Methods-- (Interface)
     void LocomotionContext.SetState(LocomotionState newState)
     {
-        currentState = newState;
+        _currentState = newState;
     }
+    #endregion
 }
 
 public class GroundedState : LocomotionState
 {
+    #region --Methods-- (Interface)
     public void Crouch(LocomotionContext context)
     {
         // **** Usually we have to enact some code here, not just changing the state ****
@@ -59,10 +70,12 @@ public class GroundedState : LocomotionState
     public void Land(LocomotionContext context)
     {
     }
+    #endregion
 }
 
 public class CrouchingState : LocomotionState
 {
+    #region --Methods-- (Interface)
     void LocomotionState.Crouch(LocomotionContext context)
     {
         context.SetState(new GroundedState());
@@ -81,10 +94,12 @@ public class CrouchingState : LocomotionState
     void LocomotionState.Land(LocomotionContext context)
     {
     }
+    #endregion
 }
 
 public class InAirState : LocomotionState
 {
+    #region --Methods-- (Interface)
     void LocomotionState.Crouch(LocomotionContext context)
     {
     }
@@ -101,4 +116,5 @@ public class InAirState : LocomotionState
     {
         context.SetState(new GroundedState());
     }
+    #endregion
 }
