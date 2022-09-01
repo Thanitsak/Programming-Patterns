@@ -85,24 +85,24 @@ namespace UnitySide
         #endregion
     }
 
-    //[CreateAssetMenu(fileName = "Ability Name", menuName = "Path/Create New Ability", order = 1)]
-    //public class DelayedDecorator : AbilityStrategy
-    //{
-    //    #region --Fields-- (Inspector)
-    //    [SerializeField] private AbilityStrategy _wrappedAbility;
-    //    #endregion
+    [CreateAssetMenu(fileName = "Ability Name", menuName = "Path/Create New Ability", order = 1)]
+    public class DelayedDecorator : AbilityStrategy
+    {
+        #region --Fields-- (Inspector)
+        [SerializeField] private AbilityStrategy _wrappedAbility;
+        #endregion
 
 
 
-    //    #region --Methods-- (Override)
-    //    public override void Use(GameObject currentGameObject)
-    //    {
-    //        // TODO ...some delaying functionality...
+        #region --Methods-- (Override)
+        public override void Use(GameObject currentGameObject)
+        {
+            // TODO ...some delaying functionality...
 
-    //        _wrappedAbility.Use(currentGameObject);
-    //    }
-    //    #endregion
-    //}
+            _wrappedAbility.Use(currentGameObject);
+        }
+        #endregion
+    }
 
     //[CreateAssetMenu(fileName = "Ability Name", menuName = "Path/Create New Ability", order = 1)]
     //public class SequenceComposite : AbilityStrategy

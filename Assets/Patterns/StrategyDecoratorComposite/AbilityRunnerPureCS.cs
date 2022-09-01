@@ -5,8 +5,8 @@ namespace PureCSSide
     public class AbilityRunnerPureCS : MonoBehaviour
     {
         #region --Fields-- (In Class)
-        private IAbilityStrategy _currentAbility = new RageAbility();
-        //private IAbilityStrategy _currentAbility = new DelayedDecorator(new RageAbility());
+        //private IAbilityStrategy _currentAbility = new RageAbility();
+        private IAbilityStrategy _currentAbility = new DelayedDecorator(new RageAbility());
         //private IAbilityStrategy _currentAbility = new SequenceComposite(new IAbilityStrategy[] { new FireballAbility(), new RageAbility() });;
         #endregion
 
@@ -69,33 +69,33 @@ namespace PureCSSide
         #endregion
     }
 
-    //public class DelayedDecorator : IAbilityStrategy
-    //{
-    //    #region --Fields-- (In Class)
-    //    private IAbilityStrategy _wrappedAbility;
-    //    #endregion
+    public class DelayedDecorator : IAbilityStrategy
+    {
+        #region --Fields-- (In Class)
+        private IAbilityStrategy _wrappedAbility;
+        #endregion
 
 
 
-    //    #region --Constructors-- (PUBLIC)
-    //    // NEED TO HAVE CONSTRUCTOR CUZ BEIGN USE AS Pure C#. In Unity simply create this class as ScriptableObject, RPG project -> DelayCompositeEffect.cs
-    //    public DelayedDecorator(IAbilityStrategy wrappedAbility)
-    //    {
-    //        _wrappedAbility = wrappedAbility;
-    //    }
-    //    #endregion
+        #region --Constructors-- (PUBLIC)
+        // NEED TO HAVE CONSTRUCTOR CUZ BEIGN USE AS Pure C#. In Unity simply create this class as ScriptableObject, RPG project -> DelayCompositeEffect.cs
+        public DelayedDecorator(IAbilityStrategy wrappedAbility)
+        {
+            _wrappedAbility = wrappedAbility;
+        }
+        #endregion
 
 
 
-    //    #region --Methods-- (Interface)
-    //    public void Use(GameObject currentGameObject)
-    //    {
-    //        // TODO ...some delaying functionality...
+        #region --Methods-- (Interface)
+        public void Use(GameObject currentGameObject)
+        {
+            // TODO ...some delaying functionality...
 
-    //        _wrappedAbility.Use(currentGameObject);
-    //    }
-    //    #endregion
-    //}
+            _wrappedAbility.Use(currentGameObject);
+        }
+        #endregion
+    }
 
     //public class SequenceComposite : IAbilityStrategy
     //{
