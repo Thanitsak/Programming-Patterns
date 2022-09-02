@@ -6,8 +6,14 @@ namespace PureCSSide
     {
         #region --Fields-- (In Class)
         //private IAbilityStrategy _currentAbility = new RageAbility();
-        private IAbilityStrategy _currentAbility = new DelayedDecorator(new RageAbility());
-        //private IAbilityStrategy _currentAbility = new SequenceComposite(new IAbilityStrategy[] { new FireballAbility(), new RageAbility() });;
+        //private IAbilityStrategy _currentAbility = new DelayedDecorator(new RageAbility());
+        private IAbilityStrategy _currentAbility =
+            new SequenceComposite(
+                new IAbilityStrategy[] {
+                    new FireballAbility(),
+                    new RageAbility(),
+                    new DelayedDecorator(new RageAbility())
+                });
         #endregion
 
 
@@ -16,20 +22,6 @@ namespace PureCSSide
         public void UseAbility()
         {
             _currentAbility.Use(gameObject);
-
-            // ----NAIVE way is to do Enum switching----
-            //switch (_currentEnumAbility)
-            //{
-            //    case EnumAbility.Fireball:
-            //        Debug.Log("Launch Fireball");
-            //        break;
-            //    case EnumAbility.Rage:
-            //        Debug.Log("I'm always angry");
-            //        break;
-            //    case EnumAbility.Heal:
-            //        Debug.Log("Here eat this!");
-            //        break;
-            //}
         }
         #endregion
     }
@@ -78,7 +70,7 @@ namespace PureCSSide
 
 
         #region --Constructors-- (PUBLIC)
-        // NEED TO HAVE CONSTRUCTOR CUZ BEIGN USE AS Pure C#. In Unity simply create this class as ScriptableObject, RPG project -> DelayCompositeEffect.cs
+        // NEED TO HAVE CONSTRUCTOR CUZ BEIGN USE AS Pure C#. In Unity simply create this class as ScriptableObject.
         public DelayedDecorator(IAbilityStrategy wrappedAbility)
         {
             _wrappedAbility = wrappedAbility;
@@ -97,34 +89,32 @@ namespace PureCSSide
         #endregion
     }
 
-    //public class SequenceComposite : IAbilityStrategy
-    //{
-    //    #region --Fields-- (In Class)
-    //    private IAbilityStrategy[] _sequenceAbilities;
-    //    #endregion
+    public class SequenceComposite : IAbilityStrategy
+    {
+        #region --Fields-- (In Class)
+        private IAbilityStrategy[] _sequenceAbilities;
+        #endregion
 
 
 
-    //    #region --Constructors-- (PUBLIC)
-    //    // NEED TO HAVE CONSTRUCTOR CUZ BEIGN USE AS Pure C#. In Unity simply create this class as ScriptableObject, RPG project -> DelayCompositeEffect.cs
-    //    public SequenceComposite(IAbilityStrategy[] sequenceAbilities)
-    //    {
-    //        _sequenceAbilities = sequenceAbilities;
-    //    }
-    //    #endregion
+        #region --Constructors-- (PUBLIC)
+        // NEED TO HAVE CONSTRUCTOR CUZ BEIGN USE AS Pure C#. In Unity simply create this class as ScriptableObject.
+        public SequenceComposite(IAbilityStrategy[] sequenceAbilities)
+        {
+            _sequenceAbilities = sequenceAbilities;
+        }
+        #endregion
 
 
 
-    //    #region --Methods-- (Interface)
-    //    public void Use(GameObject currentGameObject)
-    //    {
-    //        // IF we calling them randomly that will be "RandomComposite.cs"
-
-    //        foreach (IAbilityStrategy ability in _sequenceAbilities)
-    //        {
-    //            ability.Use(currentGameObject);
-    //        }
-    //    }
-    //    #endregion
-    //}
+        #region --Methods-- (Interface)
+        public void Use(GameObject currentGameObject)
+        {
+            foreach (IAbilityStrategy ability in _sequenceAbilities) // IF we calling them randomly that will be "RandomComposite.cs"
+            {
+                ability.Use(currentGameObject);
+            }
+        }
+        #endregion
+    }
 }

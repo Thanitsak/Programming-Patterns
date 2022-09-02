@@ -14,20 +14,6 @@ namespace UnitySide
         public void UseAbility()
         {
             _currentAbility.Use(gameObject);
-
-            // ----NAIVE way is to do Enum switching----
-            //switch (_currentEnumAbility)
-            //{
-            //    case EnumAbility.Fireball:
-            //        Debug.Log("Launch Fireball");
-            //        break;
-            //    case EnumAbility.Rage:
-            //        Debug.Log("I'm always angry");
-            //        break;
-            //    case EnumAbility.Heal:
-            //        Debug.Log("Here eat this!");
-            //        break;
-            //}
         }
         #endregion
     }
@@ -104,25 +90,23 @@ namespace UnitySide
         #endregion
     }
 
-    //[CreateAssetMenu(fileName = "Ability Name", menuName = "Path/Create New Ability", order = 1)]
-    //public class SequenceComposite : AbilityStrategy
-    //{
-    //    #region --Fields-- (Inspector)
-    //    [SerializeField] private AbilityStrategy[] _sequenceAbilities;
-    //    #endregion
+    [CreateAssetMenu(fileName = "Ability Name", menuName = "Path/Create New Ability", order = 1)]
+    public class SequenceComposite : AbilityStrategy
+    {
+        #region --Fields-- (Inspector)
+        [SerializeField] private AbilityStrategy[] _sequenceAbilities;
+        #endregion
 
 
 
-    //    #region --Methods-- (Override)
-    //    public override void Use(GameObject currentGameObject)
-    //    {
-    //        // IF we calling them randomly that will be "RandomComposite.cs"
-
-    //        foreach (AbilityStrategy ability in _sequenceAbilities)
-    //        {
-    //            ability.Use(currentGameObject);
-    //        }
-    //    }
-    //    #endregion
-    //}
+        #region --Methods-- (Override)
+        public override void Use(GameObject currentGameObject)
+        {
+            foreach (AbilityStrategy ability in _sequenceAbilities) // IF we calling them randomly that will be "RandomComposite.cs"
+            {
+                ability.Use(currentGameObject);
+            }
+        }
+        #endregion
+    }
 }
