@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,8 +10,14 @@ public class Car : MonoBehaviour
 
 
 
-    #region --Fields-- (In Class)
-    private int _traveledKM = 0;
+    #region --Events-- (Delegate as Action)
+    public event Action OnTravelChanged;
+    #endregion
+
+
+
+    #region --Properties-- (Auto)
+    public int TraveledKM { get; private set; } = 0;
     #endregion
 
 
@@ -25,7 +32,12 @@ public class Car : MonoBehaviour
 
 
     #region --Methods-- (Custom PUBLIC)
-    public void IncrementTraveledKM() => ++_traveledKM;
+    public void IncrementTraveledKM()
+    {
+        ++TraveledKM;
+
+        OnTravelChanged?.Invoke();
+    }
     #endregion
 
 
@@ -33,9 +45,11 @@ public class Car : MonoBehaviour
     #region --Methods-- (Custom PRIVATE)
     private IEnumerator StartEngine(Fuel fuel)
     {
-        while (!fuel.IsEmpty())
+        while (true)
         {
-            fuel.UseFuel(_fuelBurnRatePerSec);
+            bool success = fuel.UseFuel(_fuelBurnRatePerSec);
+            if (!success)
+                Debug.LogWarning("Not Enough Fuel for the Car Engine!");
 
             yield return new WaitForSeconds(1f);
         }

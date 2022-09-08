@@ -24,20 +24,26 @@ public class Fuel : MonoBehaviour
 
 
 
-    #region --Fields-- (In Class)
-    private float _fuelLevel = 0f;
+    #region --Properties-- (With Backing Fields)
+    public float MaxFuelLevel { get => _maxFuelLevel; }
+    #endregion
+
+
+
+    #region --Properties-- (Auto)
+    public float FuelLevel { get; private set; } = 4f;
     #endregion
 
 
 
     #region --Methods-- (Custom PUBLIC)
-    public bool IsEmpty() => _fuelLevel <= 0f;
+    public bool IsEmpty() => FuelLevel <= 0f;
 
     public bool UseFuel(float useAmount)
     {
-        if (_fuelLevel - useAmount >= 0f)
+        if (FuelLevel - useAmount >= 0f)
         {
-            _fuelLevel -= useAmount;
+            FuelLevel -= useAmount;
             OnFuelLevelChanged?.Invoke();
             return true;
         }
@@ -46,9 +52,9 @@ public class Fuel : MonoBehaviour
 
     public void AddFuel(float addAmount)
     {
-        _fuelLevel += addAmount;
+        FuelLevel += addAmount;
 
-        if (_fuelLevel >= _maxFuelLevel)
+        if (FuelLevel >= MaxFuelLevel)
         {
             _onFuelLevelMaxed?.Invoke();
 
@@ -64,7 +70,7 @@ public class Fuel : MonoBehaviour
     #region --Methods-- (Custom PRIVATE)
     private void ResetFuel()
     {
-        _fuelLevel = 0;
+        FuelLevel = 0;
 
         OnFuelLevelChanged?.Invoke();
     }
