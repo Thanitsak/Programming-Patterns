@@ -68,9 +68,48 @@ public class LinqExperiment : MonoBehaviour
         sortedByAgeDescReverse.PrintLine("Sorted Desc Reverse : ", e => e.age);
 
 
+        // Select
+        IEnumerable<Employee> youngEmployees = _employees.Where(e => e.age <= 30);
+        IEnumerable<string> youngEmployeesName = _employees.Where(e => e.age <= 30).Select(e => e.firstName);
+        youngEmployeesName.PrintLine("Young Employees Name : ");
+
+
+        // Single
+        Employee anEmployee1 = _employees.Single(e => e.age <= 30 && e.age >= 20);
+        print($"Employee Name : {anEmployee1.firstName}");
+        // SingleOrDefault
+        Employee anEmployee2 = _employees.SingleOrDefault(e => e.age <= 30 && e.age >= 20);
+        print($"Employee Name : {anEmployee2.firstName}");
+
+
+        // First
+        Employee firstEmployee1 = _employees.First(e => e.age <= 30);
+        print($"First : {firstEmployee1.firstName}");
+        // FirstOrDefault
+        Employee firstEmployee2 = _employees.FirstOrDefault(e => e.age <= 30);
+        print($"FirstOrDefault : {firstEmployee2.firstName}");
+
+
+        // Last
+        Employee lastEmployee1 = _employees.Last(e => e.age <= 30);
+        print($"Last : {lastEmployee1.firstName}");
+        // LastOrDefault
+        Employee lastEmployee2 = _employees.LastOrDefault(e => e.age <= 30);
+        print($"LastOrDefault : {lastEmployee2.firstName}");
+
+
+        // Skip / Take
+        var skipTakeEmployees = _employees.Skip(2).Take(3);
+        skipTakeEmployees.PrintLine("Skip2 Take3 : ", e => e.firstName);
+
+
         // Average
         var averageSalary = _employees.Average(e => e.salary);
         print($"Average Salary : {averageSalary}");
+
+        // Sum
+        var sumSalary = _employees.Sum(e => e.salary);
+        print($"Sum Salary : {sumSalary}");
 
 
         // Count
